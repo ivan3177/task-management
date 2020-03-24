@@ -4,12 +4,12 @@ module.exports = {
     project: 'tsconfig.json',
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint/eslint-plugin', 'import'],
+  plugins: ['@typescript-eslint', 'prettier', 'import'],
   extends: [
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier',
-    'prettier/@typescript-eslint',
+    'plugin:prettier/recommended'
   ],
   root: true,
   env: {
@@ -17,9 +17,11 @@ module.exports = {
     jest: true,
   },
   rules: {
+    'arrow-body-style': ['error', 'as-needed'],
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/member-delimiter-style': 'off',
     "import/order": [
       "error",
       {

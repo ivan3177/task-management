@@ -11,9 +11,8 @@ import { TaskStatus } from './task-status.enum'
 export class TasksService {
   constructor(@InjectRepository(TaskRepository) private taskRepository: TaskRepository) {}
 
-  getTasks = async (filterDTO: GetTasksFilterDTO): Promise<Task[]> => {
-    return this.taskRepository.getTasks(filterDTO)
-  }
+  getTasks = async (filterDTO: GetTasksFilterDTO): Promise<Task[]> =>
+    this.taskRepository.getTasks(filterDTO)
 
   getTaskById = async (id: number): Promise<Task> => {
     const found = await this.taskRepository.findOne(id)
@@ -25,9 +24,8 @@ export class TasksService {
     return found
   }
 
-  createTask = async (createTaskDTO: CreateTaskDTO): Promise<Task> => {
-    return this.taskRepository.createTask(createTaskDTO)
-  }
+  createTask = async (createTaskDTO: CreateTaskDTO): Promise<Task> =>
+    this.taskRepository.createTask(createTaskDTO)
 
   updateTaskStatus = async (id: number, status: TaskStatus): Promise<Task> => {
     const task = await this.getTaskById(id)
