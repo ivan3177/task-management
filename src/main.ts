@@ -5,11 +5,16 @@ import * as config from 'config'
 import { AppModule } from './app.module'
 
 async function bootstrap() {
-  const server = config.get('server')
+  const app = await NestFactory.create(AppModule)
   const logger = new Logger('bootstrap')
+
+  if (process.env.NODE_ENV === 'development') {
+    app.enableCors()
+  }
+
+  const server = config.get('server')
   const port = process.env.PORT || server.port
 
-  const app = await NestFactory.create(AppModule)
   await app.listen(port)
   logger.log(`Application listening on port ${port}`)
 }
