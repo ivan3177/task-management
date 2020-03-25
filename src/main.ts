@@ -8,12 +8,19 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule)
   const logger = new Logger('bootstrap')
 
-  if (process.env.NODE_ENV === 'development') {
-    app.enableCors()
-  }
-
   const server = config.get('server')
   const port = process.env.PORT || server.port
+
+  if (process.env.NODE_ENV === 'development') {
+    app.enableCors()
+  } else {
+    const origin = server.origin
+
+    app.enableCors({
+      origin,
+    })
+    logger.log(`Accepting request from origin ${origin}`)
+  }
 
   await app.listen(port)
   logger.log(`Application listening on port ${port}`)
